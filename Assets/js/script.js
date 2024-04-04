@@ -1,6 +1,5 @@
 // Retrieve tasks and nextId from localStorage
 let nextId = JSON.parse(localStorage.getItem("nextId"));
-
 const toDos = document.getElementById("todo-cards");
 const titleInput = document.getElementById("tasktitle");
 const descriptionInput = document.getElementById("taskdescription");
