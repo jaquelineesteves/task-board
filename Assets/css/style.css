@@ -14,3 +14,11 @@ body {
 .task-card:hover {
   cursor: grab;
 }
+
+#in-progress-cards{
+  width: max-content;
+}
+
+.new-class {
+  background-color: white;
+}
