@@ -33,7 +33,7 @@ function generateTaskId() {
 
   const inputData = function (task) {
     const cardDiv = $('<div>');
-    cardDiv.addClass('card text- draggable mb-3');
+    cardDiv.addClass('card text- mb-3 draggable');
     cardDiv.attr('data-task-id', task.id);
     cardDiv.css('max-width', '18rem');
 
@@ -112,7 +112,7 @@ console.log("renderTaskList"+ tasks);
     } else if (project.status === 'done') {
       doneList.append(inputData(task));
     }
-  }
+  };
 
   $('.draggable').draggable({
     opacity: 0.7,
@@ -126,8 +126,7 @@ console.log("renderTaskList"+ tasks);
       });
     },
   });
-}
-    // Update localStorage
+};
 
 // Todo: create a function to handle adding a new task
 
@@ -153,10 +152,7 @@ function handleAddTask(event){
   console.log(tasks);
   renderTaskList();
 };
-  submitForm.addEventListener('submit', handleAddTask);
-
   
-
   // Todo: create a function to handle deleting a task
   /*function handleDeleteTask(){
     const taskId = $(this).attr('data-task-id');
@@ -192,21 +188,11 @@ renderTaskList();
 };
 
 
-  // added a clear storage button
-  document.addEventListener('DOMContentLoaded', function() {
-  const clearButton = document.getElementById('clear');
-
-  clearButton.addEventListener('click', function() {
-    localStorage.clear();
-});
-});
 
 
 // Todo: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
 $(document).ready(function () {
 renderTaskList();
-});
-
 $( function() {
   $( "#datepicker" ).datepicker();
 } );
@@ -214,4 +200,17 @@ $( function() {
 $('.lane').droppable({
   accept: '.draggable',
   drop: handleDrop,
+});
+});
+
+
+submitForm.addEventListener('submit', handleAddTask);
+
+ //clear storage button
+document.addEventListener('DOMContentLoaded', function() {
+    const clearButton = document.getElementById('clear');
+  
+    clearButton.addEventListener('click', function() {
+      localStorage.clear();
+});
 });
