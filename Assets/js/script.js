@@ -63,11 +63,11 @@ function generateTaskId() {
       .addClass('btn btn-primary delete-btn')
       .text('Delete')
       .attr('data-task-id', task.id);
-      delBtn.appendTo(cardBodyEl)
 
-      .click(function() {
-        $(this).closest('.card').remove();
-    });
+      delBtn.appendTo(cardBodyEl);
+    //   .click(function() {
+    //     $(this).closest('.card').remove();
+    // });
 
     if (task.date && task.status!== 'done') {
       const now = dayjs();
@@ -107,9 +107,9 @@ console.log("renderTaskList"+ tasks);
   for (let task of tasks) {
     if (task.status === 'to-do') {
       todoList.append(inputData(task));
-    } else if (project.status === 'in-progress') {
+    } else if (task.status === 'in-progress') {
       inProgressList.append(inputData(task));
-    } else if (project.status === 'done') {
+    } else if (task.status === 'done') {
       doneList.append(inputData(task));
     }
   };
@@ -150,29 +150,20 @@ function handleAddTask(event){
   descriptionInput.value = '';
   dateInput.value = '';
   console.log(tasks);
+
   renderTaskList();
 };
   
-  // Todo: create a function to handle deleting a task
-  /*function handleDeleteTask(){
-    const taskId = $(this).attr('data-task-id');
-    const tasks = handleAddTask;
-  
-    tasks.forEach((task) => {
-      if (task.id === taskId) {
-        task.splice(task.indexOf(task), 1);
-      }
-    });
-  
-
-    saveProjectsToStorage(projects);
-  
-   
-    printProjectData();
-  }*/
-  
+// Todo: create a function to handle deleting a task
+function handleDeleteTask() {
+  const taskId = $(this).attr('data-task-id');
+  tasks = tasks.filter(task => task.id !== taskId);
+  localStorage.setItem('tasks', JSON.stringify(tasks));
+  renderTaskList();
+}
 // Todo: create a function to handle dropping a task into a new status lane
 function handleDrop(event, ui) {
+
   const newStatus = event.target.id;
   const taskId = ui.draggable[0].dataset.taskId;
   for (let task of tasks) {
@@ -181,8 +172,8 @@ function handleDrop(event, ui) {
     task.status = newStatus;
   }
 }
-// ? Save the updated projects array to localStorage (overwritting the previous one) and render the new project data to the screen.
-localStorage.setItem('nextId', JSON.stringify(nextId));
+localStorage.setItem('tasks', JSON.stringify(tasks));
+
 renderTaskList();
 
 };
@@ -192,25 +183,24 @@ renderTaskList();
 
 // Todo: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
 $(document).ready(function () {
-renderTaskList();
-$( function() {
+  renderTaskList();
+
   $( "#datepicker" ).datepicker();
-} );
 
-$('.lane').droppable({
-  accept: '.draggable',
-  drop: handleDrop,
-});
-});
+  $('.lane').droppable({
+      accept: '.draggable',
+      drop: handleDrop,
+  });
 
+  // Event delegation for delete button click
+  $(document).on('click', '.delete-btn', handleDeleteTask);
 
-submitForm.addEventListener('submit', handleAddTask);
+  // Submit form event listener
+  submitForm.addEventListener('submit', handleAddTask);
 
- //clear storage button
-document.addEventListener('DOMContentLoaded', function() {
-    const clearButton = document.getElementById('clear');
-  
-    clearButton.addEventListener('click', function() {
+  // Clear storage button
+  document.getElementById('clear').addEventListener('click', function() {
       localStorage.clear();
-});
+      renderTaskList();
+  });
 });
