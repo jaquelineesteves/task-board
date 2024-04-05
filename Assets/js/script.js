@@ -24,16 +24,19 @@ $('#formModal').on('show.bs.modal', function (event) {
 
 // Todo: create a function to generate a unique task id
 function generateTaskId() {
- 
-  localStorage.setItem('nextId', JSON.stringify(nextId));
-}
+  const taskId = nextId;
+  nextId++; 
+  localStorage.setItem('nextId', JSON.stringify(nextId)); 
+  return taskId;
+};
+
 
 
 // Todo: create a function to create a task card
 
   const inputData = function (task) {
     const cardDiv = $('<div>');
-    cardDiv.addClass('card text-white draggable mb-3');
+    cardDiv.addClass('card text- draggable mb-3');
     cardDiv.attr('data-task-id', task.id);
     cardDiv.css('max-width', '18rem');
 
@@ -112,7 +115,6 @@ console.log("renderTaskList"+ tasks);
       doneList.append(inputData(task));
     }
   }
-    }
 
   $('.draggable').draggable({
     opacity: 0.7,
@@ -126,7 +128,7 @@ console.log("renderTaskList"+ tasks);
       });
     },
   });
-
+}
     // Update localStorage
 
 // Todo: create a function to handle adding a new task
@@ -135,6 +137,7 @@ function handleAddTask(event){
     event.preventDefault();
   
     const task = {
+    id: generateTaskId(),
     title: titleInput.value,
     description: descriptionInput.value,
     date: dateInput.value,
@@ -157,11 +160,10 @@ function handleAddTask(event){
   
 
   // Todo: create a function to handle deleting a task
-  function handleDeleteTask(){
+  /*function handleDeleteTask(){
     const taskId = $(this).attr('data-task-id');
     const tasks = handleAddTask;
   
-    // ? Remove project from the array. There is a method called `filter()` for this that is better suited which we will go over in a later activity. For now, we will use a `forEach()` loop to remove the project.
     tasks.forEach((task) => {
       if (task.id === taskId) {
         task.splice(task.indexOf(task), 1);
@@ -173,7 +175,7 @@ function handleAddTask(event){
   
    
     printProjectData();
-  }
+  }*/
   
 // Todo: create a function to handle dropping a task into a new status lane
 function handleDrop(event, ui) {
