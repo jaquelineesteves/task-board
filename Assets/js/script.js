@@ -65,6 +65,7 @@ function generateTaskId() {
       const delBtn  = $('<button>')
       .addClass('btn btn-primary delete-btn')
       .text('Delete')
+      .attr('data-task-id', task.id);
       delBtn.appendTo(cardBodyEl)
 
       .click(function() {
@@ -134,26 +135,26 @@ console.log("renderTaskList"+ tasks);
 // Todo: create a function to handle adding a new task
 
 function handleAddTask(event){
-    event.preventDefault();
-  
-    const task = {
-    id: generateTaskId(),
-    title: titleInput.value,
-    description: descriptionInput.value,
-    date: dateInput.value,
-    status:'to-do'
-    };
+  event.preventDefault();
 
-    tasks.push(task);
-  
-    localStorage.setItem('tasks', JSON.stringify(tasks));
+  const task = {
+      id: generateTaskId(), 
+      title: titleInput.value,
+      description: descriptionInput.value,
+      date: dateInput.value,
+      status: 'to-do'
+  };
 
-   // Reset form inputs
-   titleInput.value = '';
-   descriptionInput.value = '';
-   dateInput.value = '';
-   console.log(tasks);
-   renderTaskList();
+  tasks.push(task);
+
+  localStorage.setItem('tasks', JSON.stringify(tasks));
+
+  // Reset form inputs
+  titleInput.value = '';
+  descriptionInput.value = '';
+  dateInput.value = '';
+  console.log(tasks);
+  renderTaskList();
 };
   submitForm.addEventListener('submit', handleAddTask);
 
@@ -180,7 +181,7 @@ function handleAddTask(event){
 // Todo: create a function to handle dropping a task into a new status lane
 function handleDrop(event, ui) {
   const newStatus = event.target.id;
-  const taskId = ui.draggable[0].dataset.projectId;
+  const taskId = ui.draggable[0].dataset.taskId;
   for (let task of tasks) {
     
     if (task.id === taskId) {
