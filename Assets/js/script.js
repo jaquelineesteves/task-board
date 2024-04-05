@@ -17,9 +17,6 @@ $('#formModal').on('show.bs.modal', function (event) {
     
   });
 
-  $( function() {
-    $( "#datepicker" ).datepicker();
-  } );
 
 
 // Todo: create a function to generate a unique task id
@@ -209,6 +206,10 @@ renderTaskList();
 $(document).ready(function () {
 renderTaskList();
 });
+
+$( function() {
+  $( "#datepicker" ).datepicker();
+} );
 
 $('.lane').droppable({
   accept: '.draggable',
