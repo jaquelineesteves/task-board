@@ -7,8 +7,8 @@ This project was the hardest one, I used Jquery, bootstrap, used  more than 20 h
 ## Usage
 click 'add task' and then will show a modal to input tasks, with task title, date and task description, if the user input date is before today the task card will show and it'll be red, if is today will be yellow and tomorrow will be white, if you refresh the page the cards will still be there. you can delete cards.
 
-![console open with a table](assets/images/screenshot1.png)
-![console open with a table](assets/images/screenshot2.png)
+![console open with a table](Assets/images/screenshot1.png)
+![console open with a table](Assets/images/screenshot2.png)
  
 
 ## Credits
