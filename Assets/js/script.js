@@ -65,9 +65,9 @@ function generateTaskId() {
       .attr('data-task-id', task.id);
 
       delBtn.appendTo(cardBodyEl);
-    //   .click(function() {
-    //     $(this).closest('.card').remove();
-    // });
+      delBtn.click(function() {
+      $(this).closest('.card').remove();
+    });
 
     if (task.date && task.status!== 'done') {
       const now = dayjs();
@@ -193,7 +193,7 @@ $(document).ready(function () {
   });
 
   // Event delegation for delete button click
-  $(document).on('click', '.delete-btn', handleDeleteTask);
+  //$(document).on('click', '.delete-btn', handleDeleteTask);
 
   // Submit form event listener
   submitForm.addEventListener('submit', handleAddTask);
